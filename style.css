@@ -98,21 +98,26 @@ nav a:hover {
 
 .image-container {
     position: relative; /* Permite usar posición absoluta en la imagen */
-    width: 200px; /* Ajusta el ancho de la imagen según necesites */
-    height: 200px; /* Ajusta la altura de la imagen según necesites */
+    width: 150px; /* Ajusta el ancho de la imagen según necesites */
+    height: 150px; /* Ajusta la altura de la imagen según necesites */
     overflow: hidden; /* Recorta cualquier parte de la imagen que exceda el contenedor */
+}
+.image-container {
+    width: auto; /* O usa un valor específico como 100% */
+    height: auto; /* O establece un valor específico */
+    overflow: visible; /* Asegúrate de que el contenido no se corte */
 }
 
 #img-person {
-    max-width: 100%; /* Asegura que la imagen no exceda el contenedor */
-    max-height: 100%; /* Asegura que la imagen no exceda el contenedor */
-    filter: blur(5px); /* Aplica un desenfoque a la imagen */
-    transition: filter 0.3s ease; /* Efecto de transición suave para el desenfoque */
+    width: 100%; /* O el porcentaje que necesites */
+    height: auto; /* Mantiene la proporción */
+    object-fit: contain; /* Mantiene la imagen dentro del contenedor */
+    mask-image: linear-gradient(
+        black 80%,
+        transparent 
+    );
 }
 
-.image-container:hover #img-person {
-    filter: blur(0); /* Elimina el desenfoque al pasar el ratón por encima */
-}
 
 
 /* Sections */
