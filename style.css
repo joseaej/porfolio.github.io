@@ -18,37 +18,131 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+    scrollbar-width: none;
+    scrollbar-color: #4e54c8;
 }
 
-/* Header & Navigation */
+@keyframes show {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95); /* Comienza desde abajo con escala reducida */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1); /* Llega a su posición original */
+    }
+}
+
+section {
+    opacity: 0; /* Oculto inicialmente */
+    transform: translateY(50px) scale(0.95); /* Posición y escala inicial */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+section.visible {
+    animation: show 0.8s ease-out forwards; /* Activa la animación */
+}
+
+/*Scroll*/
 header {
     position: fixed;
     width: 100%;
     background-color: rgba(18, 18, 18, 0.95);
-    padding: 1rem;
+    padding: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 1000;
 }
+/* NAV THEMES */
+#name-nav {
+    padding-right: 5%;
+    padding-left: 5%;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
 
-nav ul {
+#name-nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: #4e54c8;
+    transform: skewX(-20deg);
+    transition: 0.5s;
+}
+
+/* Animación suave del efecto de luz */
+#name-nav:hover::before {
+    left: 110%;
+    transition: 0.5s;
+}
+
+nav {
     display: flex;
     justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+/* Estilo de los enlaces del nav */
+nav ul {
     list-style: none;
-    gap: 2rem;
+    display: flex;
+    gap: 30px;
 }
 
-nav a {
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: color 0.3s;
+    font-size: 1.2em;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 5px 15px;
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
-nav a:hover {
-    color: var(--primary-color);
+/* Efecto de hover */
+nav ul li a:hover {
+    color: #4e54c8;
 }
 
-/* Hero Section */
+/* Estilo del efecto "subrayado" animado en hover */
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+nav ul li a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Añadir una sombra en hover */
+nav ul li:hover {
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
+}
+
+
+
 #home {
     height: 100vh;
     display: flex;
@@ -61,7 +155,6 @@ nav a:hover {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    color: var(--text-color);
 }
 
 .hero p {
@@ -86,41 +179,53 @@ nav a:hover {
     color: var(--primary-color);
     transform: translateY(-3px);
 }
+
 .about-content {
-    display: flex; /* Usa flexbox para alinear los elementos uno al lado del otro */
-    align-items: center; /* Centra verticalmente los elementos */
-}
+    display: flex;
 
+    align-items: center;
+
+}
 .about-text {
-    flex: 1; /* Toma todo el espacio disponible */
-    padding: 20px; /* Espaciado alrededor del texto */
+    flex: 1;
+    padding: 20px;
+
 }
 
 .image-container {
-    position: relative; /* Permite usar posición absoluta en la imagen */
-    width: 150px; /* Ajusta el ancho de la imagen según necesites */
-    height: 150px; /* Ajusta la altura de la imagen según necesites */
-    overflow: hidden; /* Recorta cualquier parte de la imagen que exceda el contenedor */
+    position: relative;
+
+    width: 150px;
+
+    height: 150px;
+
+    overflow: hidden;
+
 }
+
 .image-container {
-    width: auto; /* O usa un valor específico como 100% */
-    height: auto; /* O establece un valor específico */
-    overflow: visible; /* Asegúrate de que el contenido no se corte */
+    width: auto;
+
+    height: auto;
+
+    overflow: visible;
+
 }
 
 #img-person {
-    width: 100%; /* O el porcentaje que necesites */
-    height: auto; /* Mantiene la proporción */
-    object-fit: contain; /* Mantiene la imagen dentro del contenedor */
-    mask-image: linear-gradient(
-        black 80%,
-        transparent 
-    );
+    width: 100%;
+
+    height: auto;
+
+    object-fit: contain;
+
+    mask-image: linear-gradient(black 80%,
+            transparent);
 }
 
 
 
-/* Sections */
+
 section {
     padding: var(--section-padding);
 }
@@ -132,7 +237,7 @@ h2 {
     color: var(--text-color);
 }
 
-/* About Section */
+
 .about-content {
     max-width: 800px;
     margin: 0 auto;
@@ -140,7 +245,7 @@ h2 {
     font-size: 1.1rem;
 }
 
-/* Skills Section */
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -150,15 +255,19 @@ h2 {
 }
 
 .skill-card {
-    text-align: center; /* Centrar texto */
+    text-align: center;
+
     padding: 2rem;
     background-color: var(--card-bg);
     border-radius: 1rem;
     transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid #333;
-    display: flex; /* Usar flexbox para centrar íconos y texto */
-    flex-direction: column; /* Alinear íconos y texto en columna */
-    align-items: center; /* Centrar horizontalmente */
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
 }
 
 .skill-card:hover {
@@ -167,17 +276,20 @@ h2 {
 }
 
 .skill-card i {
-    font-size: 2.5rem; /* Tamaño del ícono */
+    font-size: 2.5rem;
+
     color: var(--primary-color);
-    margin-bottom: 0.5rem; /* Espacio entre el ícono y el texto */
+    margin-bottom: 0.5rem;
+
 }
 
 .skill-card span {
-    font-weight: 500; /* Peso de la fuente */
+    font-weight: 500;
+
     color: var(--text-color);
 }
 
-/* Projects Section */
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -211,7 +323,7 @@ h2 {
     color: #999;
 }
 
-/* Contact Section */
+
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
@@ -245,7 +357,7 @@ textarea {
     resize: vertical;
 }
 
-/* Buttons */
+
 .btn {
     display: inline-block;
     padding: 0.8rem 1.5rem;
@@ -264,7 +376,7 @@ textarea {
     transform: translateY(-2px);
 }
 
-/* Footer */
+
 footer {
     text-align: center;
     padding: 2rem;
@@ -272,7 +384,7 @@ footer {
     border-top: 1px solid #333;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     nav ul {
         flex-direction: column;
@@ -293,12 +405,13 @@ footer {
     }
 }
 
-/* Animations */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
